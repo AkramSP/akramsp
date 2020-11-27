@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <link rel="stylesheet" href="css/leaflet-search.css">
+        <link rel="stylesheet" href="css/leaflet-measure.css">
+        <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="js/leaflet-measure.js"></script>
+        <script src="js/leaflet-search.js"></script>
+        <script src="data/BatasRT_1.js"></script>
+        <script src="data/BangunanDesaKemasan_UTM_2.js"></script>
+        <script>
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        }).fitBounds([[-7.935542513456925,110.37999798411666],[-7.934676240579522,110.38158016525105]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
+        var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
+        var measureControl = new L.Control.Measure({
+            position: 'topleft',
+            primaryLengthUnit: 'meters',
+            secondaryLengthUnit: 'kilometers',
+            primaryAreaUnit: 'sqmeters',
+            secondaryAreaUnit: 'hectares'
+        });
+        measureControl.addTo(map);
+        document.getElementsByClassName('leaflet-control-measure-toggle')[0]
+        .innerHTML = '';
+        document.getElementsByClassName('leaflet-control-measure-toggle')[0]
+        .className += ' fas fa-ruler';
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+        }
+        map.createPane('pane_resample_kemasan_utm_0');
+        map.getPane('pane_resample_kemasan_utm_0').style.zIndex = 400;
+        var img_resample_kemasan_utm_0 = 'data/resample_kemasan_utm_0.png';
+        var img_bounds_resample_kemasan_utm_0 = [[-7.937736424495999,110.37944757150727],[-7.933729838190295,110.38529851804222]];
+        var layer_resample_kemasan_utm_0 = new L.imageOverlay(img_resample_kemasan_utm_0,
+                                              img_bounds_resample_kemasan_utm_0,
+                                              {pane: 'pane_resample_kemasan_utm_0'});
+        bounds_group.addLayer(layer_resample_kemasan_utm_0);
+        map.addLayer(layer_resample_kemasan_utm_0);
+        function pop_BatasRT_1(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Id'] !== null ? autolinker.link(feature.properties['Id'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">ID_RT</th>\
+                        <td>' + (feature.properties['ID_RT'] !== null ? autolinker.link(feature.properties['ID_RT'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_BatasRT_1_0() {
+            return {
+                pane: 'pane_BatasRT_1',
+                opacity: 1,
+                color: 'rgba(39,143,255,1.0)',
+                dashArray: '10,5,1,5',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,255,255,0.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_BatasRT_1');
+        map.getPane('pane_BatasRT_1').style.zIndex = 401;
+        map.getPane('pane_BatasRT_1').style['mix-blend-mode'] = 'normal';
+        var layer_BatasRT_1 = new L.geoJson(json_BatasRT_1, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_BatasRT_1',
+            layerName: 'layer_BatasRT_1',
+            pane: 'pane_BatasRT_1',
+            onEachFeature: pop_BatasRT_1,
+            style: style_BatasRT_1_0,
+        });
+        bounds_group.addLayer(layer_BatasRT_1);
+        map.addLayer(layer_BatasRT_1);
+        function pop_BangunanDesaKemasan_UTM_2(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['FID_Bangun'] !== null ? autolinker.link(feature.properties['FID_Bangun'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">ID_RT</th>\
+                        <td>' + (feature.properties['ID_RT'] !== null ? autolinker.link(feature.properties['ID_RT'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">ID_KK</th>\
+                        <td>' + (feature.properties['ID_KK'] !== null ? autolinker.link(feature.properties['ID_KK'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['OID_'] !== null ? autolinker.link(feature.properties['OID_'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['OBJECTID'] !== null ? autolinker.link(feature.properties['OBJECTID'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ID_RT_1'] !== null ? autolinker.link(feature.properties['ID_RT_1'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ID_KK_1'] !== null ? autolinker.link(feature.properties['ID_KK_1'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Nama</th>\
+                        <td>' + (feature.properties['Nama'] !== null ? autolinker.link(feature.properties['Nama'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">No_KK</th>\
+                        <td>' + (feature.properties['No_KK'] !== null ? autolinker.link(feature.properties['No_KK'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">NIK</th>\
+                        <td>' + (feature.properties['NIK'] !== null ? autolinker.link(feature.properties['NIK'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Gender</th>\
+                        <td>' + (feature.properties['Gender'] !== null ? autolinker.link(feature.properties['Gender'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Tempat_Lah</th>\
+                        <td>' + (feature.properties['Tempat_Lah'] !== null ? autolinker.link(feature.properties['Tempat_Lah'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Tgl_lahir</th>\
+                        <td>' + (feature.properties['Tgl_lahir'] !== null ? autolinker.link(feature.properties['Tgl_lahir'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">usia</th>\
+                        <td>' + (feature.properties['usia'] !== null ? autolinker.link(feature.properties['usia'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">kategori</th>\
+                        <td>' + (feature.properties['kategori'] !== null ? autolinker.link(feature.properties['kategori'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Agama</th>\
+                        <td>' + (feature.properties['Agama'] !== null ? autolinker.link(feature.properties['Agama'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Pend_trakh</th>\
+                        <td>' + (feature.properties['Pend_trakh'] !== null ? autolinker.link(feature.properties['Pend_trakh'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">pekerjaan</th>\
+                        <td>' + (feature.properties['pekerjaan'] !== null ? autolinker.link(feature.properties['pekerjaan'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Gol_darah</th>\
+                        <td>' + (feature.properties['Gol_darah'] !== null ? autolinker.link(feature.properties['Gol_darah'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Status</th>\
+                        <td>' + (feature.properties['Status'] !== null ? autolinker.link(feature.properties['Status'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Status_hbg</th>\
+                        <td>' + (feature.properties['Status_hbg'] !== null ? autolinker.link(feature.properties['Status_hbg'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">WN</th>\
+                        <td>' + (feature.properties['WN'] !== null ? autolinker.link(feature.properties['WN'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Jml_lansia</th>\
+                        <td>' + (feature.properties['Jml_lansia'] !== null ? autolinker.link(feature.properties['Jml_lansia'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Jml_balita</th>\
+                        <td>' + (feature.properties['Jml_balita'] !== null ? autolinker.link(feature.properties['Jml_balita'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_BangunanDesaKemasan_UTM_2_0() {
+            return {
+                pane: 'pane_BangunanDesaKemasan_UTM_2',
+                opacity: 1,
+                color: 'rgba(228,26,28,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 1.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+        }
+        map.createPane('pane_BangunanDesaKemasan_UTM_2');
+        map.getPane('pane_BangunanDesaKemasan_UTM_2').style.zIndex = 402;
+        map.getPane('pane_BangunanDesaKemasan_UTM_2').style['mix-blend-mode'] = 'normal';
+        var layer_BangunanDesaKemasan_UTM_2 = new L.geoJson(json_BangunanDesaKemasan_UTM_2, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_BangunanDesaKemasan_UTM_2',
+            layerName: 'layer_BangunanDesaKemasan_UTM_2',
+            pane: 'pane_BangunanDesaKemasan_UTM_2',
+            onEachFeature: pop_BangunanDesaKemasan_UTM_2,
+            style: style_BangunanDesaKemasan_UTM_2_0,
+        });
+        bounds_group.addLayer(layer_BangunanDesaKemasan_UTM_2);
+        map.addLayer(layer_BangunanDesaKemasan_UTM_2);
+        var baseMaps = {};
+        L.control.layers(baseMaps,{'<img src="legend/BangunanDesaKemasan_UTM_2.png" /> Bangunan Desa Kemasan_UTM': layer_BangunanDesaKemasan_UTM_2,'<img src="legend/BatasRT_1.png" /> Batas RT': layer_BatasRT_1,"resample_kemasan_utm": layer_resample_kemasan_utm_0,}).addTo(map);
+        setBounds();
+        map.addControl(new L.Control.Search({
+            layer: layer_BangunanDesaKemasan_UTM_2,
+            initial: false,
+            hideMarkerOnCollapse: true,
+            propertyName: 'NIK'}));
+        document.getElementsByClassName('search-button')[0].className +=
+         ' fa fa-binoculars';
+        L.ImageOverlay.include({
+            getBounds: function () {
+                return this._bounds;
+            }
+        });
+        </script>
+    </body>
+</html>
